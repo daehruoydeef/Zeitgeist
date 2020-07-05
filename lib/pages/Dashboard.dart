@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Zeitgeist/widgets/Background.dart';
 import 'package:Zeitgeist/widgets/Character.dart';
 import 'package:Zeitgeist/widgets/Timer.dart';
+import 'package:Zeitgeist/widgets/Slider.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
@@ -11,8 +12,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  double _value = 0.0;
-  void _setvalue(double value) => setState(() => _value = value);
+  double _minutes = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               label: new Text("START MISSION"),
               onPressed: () {},
+              backgroundColor: Theme.of(context).primaryColor,
               shape: new BeveledRectangleBorder(
                 borderRadius: new BorderRadius.circular(10.0),
               ))),
@@ -38,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
           child: IconButton(
             icon: Icon(
               Icons.ac_unit,
-              color: Theme.of(context).primaryColor,
+              color: Colors.white,
               size: 35,
             ),
             onPressed: () {
@@ -52,7 +53,7 @@ class _DashboardState extends State<Dashboard> {
             child: IconButton(
               icon: Icon(
                 Icons.settings,
-                color: Theme.of(context).primaryColor,
+                color: Colors.white,
                 size: 35,
               ),
               onPressed: () {
@@ -67,17 +68,14 @@ class _DashboardState extends State<Dashboard> {
         children: [
           Background(),
           Character(),
-          Timer(),
-          Container(
-              padding: EdgeInsets.only(
-                bottom: 50,
-              ),
-              height: MediaQuery.of(context).size.height,
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: new Slider(value: _value, onChanged: _setvalue)))
+          Timer(minutes: _minutes),
+          CustomSlider(
+            value: _minutes,
+            onChanged: (value) {
+              print(value.round());
+              setState(() => _minutes = value);
+            },
+          ),
         ],
       )),
     );

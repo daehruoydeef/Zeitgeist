@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Timer extends StatefulWidget {
-  Timer({Key key}) : super(key: key);
+  final double minutes;
+
+  Timer({Key key, this.minutes}) : super(key: key);
 
   @override
   _TimerState createState() => _TimerState();
@@ -14,8 +16,11 @@ class _TimerState extends State<Timer> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.5,
       child: Center(
-          child: Text('120:00',
-              style: TextStyle(fontSize: 46, fontWeight: FontWeight.bold))),
+          child: Text('${widget.minutes.round()}:00',
+              style: TextStyle(
+                  fontSize: 46,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white))),
     );
   }
 }
